@@ -1,4 +1,3 @@
--- CREATE DATABASE management;
 
 CREATE TABLE IF NOT EXISTS departments (
   id INT NOT NULL AUTO_INCREMENT,
