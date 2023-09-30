@@ -48,23 +48,32 @@ while (true) {
 			break;
 		case "Update an employee role":
 			console.log("---------------------");
-			const updatedEmployeeRole = await input.updateEmployeeRoleInput(departments, roles);
+			const updatedEmployeeRole = await input.updateEmployeeRoleInput(employees, roles);
 			manager.updateEmployeeRole(updatedEmployeeRole);
 			break;
 		case "Update an employee manager":
 			console.log("---------------------");
-			const updatedEmployeeManager = await input.updateEmployeeManagerInput(departments);
+			const updatedEmployeeManager = await input.updateEmployeeManagerInput(employees);
 			manager.updateEmployeeManager(updatedEmployeeManager);
 			break;
 		case "Sort employees by manager":
 			console.log("---------------------");
 			const sortedByManager = await manager.sortByManager();
-			console.log(sortedByManager);
+			sortedByManager.forEach((employee) => {
+				const employeeManager = employees.find((manager) => manager.id === employee.manager_id);
+				console.log(
+					`   Manager: ${employeeManager ? employeeManager.first_name : "None"}  |  Employee Name: ${employee.first_name} ${employee.last_name}`
+				);
+			});
 			break;
 		case "Sort employees by department":
 			console.log("---------------------");
 			const sortedByDepartment = await manager.sortByDepartment();
-			console.log(sortedByDepartment);
+			sortedByDepartment.forEach((employee) => {
+				const employeeRole = roles.find((role) => role.id === employee.role_id);
+				const employeeDepartment = departments.find((department) => department.id === employeeRole.department_id);
+				console.log(`   Department: ${employeeDepartment.name}  |  Employee Name: ${employee.first_name} ${employee.last_name}`);
+			});
 			break;
 		case "Delete a department":
 			console.log("---------------------");
